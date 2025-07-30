@@ -1,0 +1,235 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Courier New', monospace;
+    background-color: #000;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.game-container {
+    text-align: center;
+    background-color: #111;
+    padding: 20px;
+    border-radius: 10px;
+    border: 3px solid #228B22;
+}
+
+.header {
+    margin-bottom: 20px;
+}
+
+.header h1 {
+    color: #ff0;
+    font-size: 2.5em;
+    text-shadow: 2px 2px 0px #000;
+    margin-bottom: 10px;
+}
+
+.game-info {
+    display: flex;
+    justify-content: space-between;
+    max-width: 400px;
+    margin: 0 auto;
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+.score {
+    color: #fff;
+}
+
+.lives {
+    color: #ff0;
+}
+
+.game-board {
+    display: grid;
+    grid-template-columns: repeat(19, 20px);
+    grid-template-rows: repeat(21, 20px);
+    gap: 0;
+    margin: 20px auto;
+    border: 3px solid #228B22;
+    background-color: #000;
+    position: relative;
+}
+
+.cell {
+    width: 20px;
+    height: 20px;
+    position: relative;
+}
+
+.wall {
+    background-color: #228B22;
+    border: 1px solid #32CD32;
+}
+
+.tree {
+    background-color: #000;
+    position: relative;
+}
+
+.tree::after {
+    content: '🌲';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 14px;
+    line-height: 1;
+}
+
+.empty {
+    background-color: #000;
+}
+
+.lumberjack {
+    background-color: #000;
+    position: relative;
+    z-index: 10;
+}
+
+.lumberjack::after {
+    content: '🪓';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 16px;
+    line-height: 1;
+}
+
+.lumberjack.right::after {
+    transform: translate(-50%, -50%) scaleX(-1);
+}
+
+.lumberjack.left::after {
+    transform: translate(-50%, -50%) scaleX(1);
+}
+
+.lumberjack.up::after {
+    transform: translate(-50%, -50%) rotate(-90deg);
+}
+
+.lumberjack.down::after {
+    transform: translate(-50%, -50%) rotate(90deg);
+}
+
+.wolf {
+    background-color: #000;
+    position: relative;
+    z-index: 5;
+}
+
+.wolf::after {
+    content: '🐺';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 16px;
+    line-height: 1;
+}
+
+.tiger {
+    background-color: #000;
+    position: relative;
+    z-index: 5;
+}
+
+.tiger::after {
+    content: '🐅';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 16px;
+    line-height: 1;
+}
+
+.snake {
+    background-color: #000;
+    position: relative;
+    z-index: 5;
+}
+
+.snake::after {
+    content: '🐍';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 16px;
+    line-height: 1;
+}
+
+.game-over {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(0, 0, 0, 0.9);
+    padding: 40px;
+    border-radius: 10px;
+    border: 3px solid #ff0;
+    text-align: center;
+    z-index: 100;
+}
+
+.game-over h2 {
+    color: #ff0;
+    font-size: 2em;
+    margin-bottom: 20px;
+}
+
+.game-over button {
+    background-color: #ff0;
+    color: #000;
+    border: none;
+    padding: 15px 30px;
+    font-size: 1.2em;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.game-over button:hover {
+    background-color: #ffa;
+}
+
+.controls {
+    margin-top: 20px;
+    color: #ccc;
+    font-size: 0.9em;
+}
+
+@keyframes swing {
+    0% { transform: translate(-50%, -50%) rotate(0deg); }
+    50% { transform: translate(-50%, -50%) rotate(20deg); }
+    100% { transform: translate(-50%, -50%) rotate(0deg); }
+}
+
+.lumberjack.chopping.right::after {
+    animation: swing 0.2s ease-in-out;
+}
+
+/* Animation for chopping trees */
+@keyframes chopTree {
+    0% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+    50% { transform: translate(-50%, -50%) scale(1.2); }
+    100% { transform: translate(-50%, -50%) scale(0); opacity: 0; }
+}
+
+.tree.chopping::after {
+    animation: chopTree 0.2s ease-in-out forwards;
+}
